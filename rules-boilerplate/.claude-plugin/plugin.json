@@ -1,0 +1,19 @@
+{
+  "name": "rules-boilerplate",
+  "version": "1.0.0",
+  "description": "Bootstrap .claude/rules/ structure for Laravel/Vue projects. Creates starter rule templates for backend, frontend, and data class conventions. Works perfectly with the engineering-roles plugin.",
+  "author": {
+    "name": "RasmusGodske"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/RasmusGodske/rules-boilerplate",
+  "keywords": [
+    "rules",
+    "conventions",
+    "boilerplate",
+    "laravel",
+    "vue",
+    "setup",
+    "bootstrap"
+  ]
+}

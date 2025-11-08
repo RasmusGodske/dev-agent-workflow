@@ -1,0 +1,20 @@
+{
+  "name": "dev-agent-workflow",
+  "description": "Agent-based development workflows for Laravel/Vue projects with Linear integration",
+  "owner": {
+    "name": "RasmusGodske",
+    "url": "https://github.com/RasmusGodske"
+  },
+  "plugins": [
+    {
+      "name": "project-roles",
+      "source": "./project-roles",
+      "description": "Role-based workflows for Laravel/Vue projects with Linear integration. Includes tech lead, backend/frontend/fullstack engineers, and agent engineer roles."
+    },
+    {
+      "name": "rules-boilerplate",
+      "source": "./rules-boilerplate",
+      "description": "Bootstrap .claude/rules/ structure with starter templates for Laravel/Vue projects. Creates backend, frontend, and data class convention files."
+    }
+  ]
+}
