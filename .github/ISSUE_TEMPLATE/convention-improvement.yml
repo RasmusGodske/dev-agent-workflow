@@ -56,6 +56,21 @@ body:
       required: true
 
   - type: textarea
+    id: what-was-seen
+    attributes:
+      label: What I Saw When Invoked
+      description: What instructions/checklist/workflow did you see when the command/skill was invoked? This shows the current state of documentation.
+      placeholder: |
+        Example: "When I invoked /roles/backend-engineer, the prompt told me to:
+        1. Read backend conventions
+        2. Implement the feature
+        3. Write tests
+
+        I did not see any instructions about invoking the code-reviewer agent, or if I did, it was buried and not emphasized as a requirement."
+    validations:
+      required: true
+
+  - type: textarea
     id: task-context
     attributes:
       label: Task Context (Generic)
