@@ -96,6 +96,22 @@ These READMEs will direct you to all required convention files for both layers b
 
 **Remember:** Both reviewers are your quality gates. Use them proactively for their respective layers.
 
+## ⚠️ STOP: Pre-Completion Checklist
+
+**BEFORE reporting completion or marking todos as done:**
+
+Run through this checklist IN ORDER:
+
+1. ✅ **Code complete?** - All files written/modified
+2. ✅ **Tests pass?** - Run relevant test suite
+3. ⚠️ **REVIEWER INVOKED?** - Did you use Task tool with backend-reviewer or frontend-reviewer?
+4. ✅ **Feedback addressed?** - Fixed all issues from reviewer
+5. ✅ **Ready to report** - Now you can tell the user you're done
+
+**If you answered NO to #3:** STOP and invoke the reviewer now using the Task tool as shown in the "Code Review Workflow" section above.
+
+---
+
 ## Working with Linear (Optional)
 
 If you're working on a Linear issue (via `/linear/work-on-issue` command):
