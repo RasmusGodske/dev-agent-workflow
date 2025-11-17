@@ -1,0 +1,67 @@
+name: Convention Improvement Auto-PR
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  create-improvement-pr:
+    # Only run when issue has the claude-code-feedback label AND is created by RasmusGodske
+    if: |
+      contains(github.event.issue.labels.*.name, 'claude-code-feedback') &&
+      github.event.issue.user.login == 'RasmusGodske'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create improvement branch
+        run: |
+          BRANCH_NAME="convention-improvement-issue-${{ github.event.issue.number }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH_NAME"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+      - name: Run Claude Code to implement changes
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Read issue #${{ github.event.issue.number }} which contains a convention improvement proposal.
+
+            The issue follows this structure:
+            - "Which Documentation Files Need Updates" - lists the file(s) to modify
+            - "Proposed Improvement" - contains the exact markdown changes to make
+
+            Your task:
+            1. Read the issue content carefully
+            2. Identify which file(s) need to be updated
+            3. Extract the proposed changes from the "Proposed Improvement" section
+            4. Apply those changes to the appropriate file(s)
+            5. Commit the changes with a clear commit message
+            6. Push to the branch "${{ env.BRANCH_NAME }}"
+            7. Create a pull request that:
+               - References issue #${{ github.event.issue.number }}
+               - Has title: "Fix: Convention improvement from issue #${{ github.event.issue.number }}"
+               - Includes a description summarizing what was changed and why
+
+            After creating the PR, comment on issue #${{ github.event.issue.number }} with:
+            "✅ Created PR #[number] to implement this improvement: [PR URL]"
+
+      - name: Fallback - Comment if action fails
+        if: failure()
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --body "⚠️ Attempted to create a PR for this convention improvement, but encountered an issue. Please review manually."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

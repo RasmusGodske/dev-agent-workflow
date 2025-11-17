@@ -266,10 +266,10 @@ gh issue create \
   --repo RasmusGodske/dev-agent-workflow \
   --title "[Convention] [your title]" \
   --body "$(cat <<'EOF'
-[Full markdown body from Step 6]
+[Full markdown body from Step 7]
 EOF
 )" \
-  --label "user-feedback,documentation,improvement"
+  --label "claude-code-feedback"
 ```
 
 **Important notes:**
