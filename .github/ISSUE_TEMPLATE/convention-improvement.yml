@@ -1,0 +1,138 @@
+name: Convention/Documentation Improvement
+description: Report a convention that was missed or documentation that needs improvement
+title: "[Convention] "
+labels: ["user-feedback", "documentation", "improvement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the plugin! This template helps capture real-world mistakes to improve our conventions and documentation.
+
+        **Privacy Note:** Ensure no company secrets, proprietary code, or sensitive information is included.
+
+  - type: dropdown
+    id: plugin
+    attributes:
+      label: Which plugin?
+      description: Which plugin does this improvement relate to?
+      options:
+        - project-roles
+        - rules-boilerplate
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component-type
+    attributes:
+      label: Component Type
+      description: What type of component needs improvement?
+      options:
+        - Role Command (e.g., /roles/backend-engineer)
+        - Linear Command (e.g., /linear/work-on-issue)
+        - Skill (e.g., backend-developer)
+        - Agent (e.g., code-reviewer)
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: component-name
+    attributes:
+      label: Specific Component
+      description: Which specific command/skill/agent? (e.g., "backend-engineer role", "code-reviewer agent")
+      placeholder: "backend-engineer role"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-was-missed
+    attributes:
+      label: What Convention/Pattern Was Missed?
+      description: Clearly describe what should have been followed but wasn't
+      placeholder: |
+        Example: "The backend engineer role completed implementation but forgot to invoke the code-reviewer agent before marking the task complete"
+    validations:
+      required: true
+
+  - type: textarea
+    id: task-context
+    attributes:
+      label: Task Context (Generic)
+      description: What type of task was being performed? (Keep this generic - no company specifics)
+      placeholder: |
+        Example: "Implementing a new API endpoint with validation and database interactions"
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-unclear
+    attributes:
+      label: Why Wasn't It Clear?
+      description: Analysis of why the convention was missed
+      placeholder: |
+        Consider:
+        - Was the rule present but buried/vague?
+        - Was it missing entirely?
+        - Was it contradictory?
+        - Was it not emphatic enough?
+        - Were examples insufficient?
+        - Was the language too abstract?
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected-files
+    attributes:
+      label: Which Documentation Files Need Updates?
+      description: List the specific plugin files that should be improved
+      placeholder: |
+        Example:
+        - project-roles/commands/roles/backend-engineer.md
+        - project-roles/agents/code-reviewer.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-improvements
+    attributes:
+      label: Proposed Improvements
+      description: Specific changes to make (be as detailed as possible)
+      placeholder: |
+        For each file:
+
+        **File:** project-roles/commands/roles/backend-engineer.md
+        **Change:** Add to the workflow section:
+        ```
+        ## CRITICAL: Code Review Requirement
+
+        **BEFORE marking any task complete, you MUST:**
+        1. Use the `code-reviewer` agent to review your changes
+        2. Address all feedback from the review
+        3. Only then mark the task as done
+
+        ❌ WRONG: Complete implementation → Mark done
+        ✅ RIGHT: Complete implementation → Code review → Address feedback → Mark done
+        ```
+        **Why:** Makes the requirement impossible to miss with visual patterns and negative examples
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information
+      placeholder: |
+        - How often does this happen?
+        - Are there similar issues in other components?
+        - Any other observations?
+
+  - type: checkboxes
+    id: privacy-check
+    attributes:
+      label: Privacy Confirmation
+      description: Confirm that this issue contains no sensitive information
+      options:
+        - label: I have reviewed this issue and confirmed it contains no company secrets, proprietary code, or sensitive business information
+          required: true
