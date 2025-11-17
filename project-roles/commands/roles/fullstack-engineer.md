@@ -103,7 +103,7 @@ Now I need to have all changes reviewed before marking complete...
    Use the Task tool with:
    - description: "Review backend code changes"
    - prompt: "Review the following backend files I just modified: [list files]. I implemented [brief description of what was done]."
-   - subagent_type: "backend-reviewer"
+   - subagent_type: "project-roles:backend-reviewer"
    ```
 
 **For frontend changes:**
@@ -113,7 +113,7 @@ Now I need to have all changes reviewed before marking complete...
    Use the Task tool with:
    - description: "Review frontend code changes"
    - prompt: "Review the following frontend files I just modified: [list files]. I implemented [brief description of what was done]."
-   - subagent_type: "frontend-reviewer"
+   - subagent_type: "project-roles:frontend-reviewer"
    ```
 
 **For fullstack features:**

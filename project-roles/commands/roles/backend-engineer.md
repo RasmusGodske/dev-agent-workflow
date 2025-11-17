@@ -94,7 +94,7 @@ Now I need to have all changes reviewed before marking complete...
    Use the Task tool with:
    - description: "Review backend code changes"
    - prompt: "Review the following files I just modified: [list files]. I implemented [brief description of what was done]."
-   - subagent_type: "backend-reviewer"
+   - subagent_type: "project-roles:backend-reviewer"
    ```
 3. **Address feedback** - Fix any issues the reviewer identifies
 4. **Re-review if needed** - If you made significant changes, invoke the reviewer again
