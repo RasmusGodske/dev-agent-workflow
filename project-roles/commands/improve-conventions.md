@@ -122,6 +122,12 @@ For the primary improvement, specify:
 **Location:** `project-roles/path/to/file.md`
 
 **Change:** Show the actual markdown/text to add or modify (keep it focused - 50-150 words)
+
+**IMPORTANT - Sanitize your examples:**
+- Use generic task names ("task-1", "the task", "feature implementation")
+- NOT company-specific IDs (RAS-60, PROJ-123, etc.)
+- Use generic code examples without proprietary business logic
+
 ```markdown
 ## CRITICAL: [Requirement Name]
 
@@ -129,8 +135,8 @@ For the primary improvement, specify:
 1. [Specific step]
 2. [Specific step]
 
-❌ WRONG: [Show what not to do]
-✅ RIGHT: [Show what to do]
+❌ WRONG: [Show what not to do - use GENERIC examples]
+✅ RIGHT: [Show what to do - use GENERIC examples]
 ```
 
 **Why:** Explain how this prevents the mistake from happening again (2-3 sentences)
@@ -150,13 +156,15 @@ For the primary improvement, specify:
 **CRITICAL:** Remove all sensitive information before creating the issue.
 
 **What to REMOVE:**
-- Company or project names (replace with "the company", "the project")
-- Specific file paths from the user's project (`/home/company/secret/app/Models/User.php` → "a Laravel model file")
-- Business logic details (replace with generic equivalents)
-- Customer/user data, names, or identifiers
-- Internal URLs, infrastructure details, or environment info
-- Proprietary code snippets (replace with generic examples)
-- Team member names
+- **Issue tracker IDs** - Linear, Jira, GitHub issue numbers (RAS-60, PROJ-123, #456 → "the task", "the feature")
+- **Company or project names** - Replace with "the company", "the project"
+- **Specific file paths** - User's project paths (`/home/company/app/Models/User.php` → "a Laravel model file")
+- **Business logic details** - Replace with generic equivalents
+- **Customer/user data** - Names, identifiers, sensitive data
+- **Internal URLs** - Infrastructure details, environment info
+- **Proprietary code** - Replace with generic examples
+- **Team member names** - Remove or use "the developer"
+- **Database/table names** - Replace with generic equivalents ("users table" → "a database table")
 
 **What to KEEP:**
 - Plugin file references (`project-roles/skills/backend-developer/SKILL.md`)
@@ -167,6 +175,12 @@ For the primary improvement, specify:
 
 **Sanitization examples:**
 
+❌ Before: "After completing RAS-60 implementation..."
+✅ After: "After completing the implementation..."
+
+❌ Before: "Should we move to RAS-61?"
+✅ After: "Should we move to the next task?"
+
 ❌ Before: "When implementing the UserSubscriptionService for Acme Corp's billing system..."
 ✅ After: "When implementing a service class with database interactions..."
 
@@ -175,6 +189,12 @@ For the primary improvement, specify:
 
 ❌ Before: "The customer_stripe_id field in our payments table"
 ✅ After: "A foreign key field in a database table"
+
+**VALIDATION - Before finalizing, scan your draft for:**
+- Issue IDs with patterns like: XXX-123, PROJ-456, #789, ticket-123
+- Company names in file paths or class names
+- Specific database/table/field names
+- Any references to Linear, Jira, or other project management tools with task IDs
 
 ### Step 7: Draft the GitHub Issue
 
