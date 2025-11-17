@@ -85,7 +85,7 @@ Be specific:
 - What actually happened instead?
 - What did you see in the expanded prompt about this requirement (if anything)?
 
-### Step 2: Analyze Why It Wasn't Clear
+### Step 3: Analyze Why It Wasn't Clear
 
 Be honest about gaps in the current plugin documentation. Consider:
 
@@ -98,7 +98,7 @@ Be honest about gaps in the current plugin documentation. Consider:
 - **No visual patterns?** - Nothing to "scan for" or check against
 - **Missing negative examples?** - No "DON'T do this" warnings
 
-### Step 3: Identify the Source
+### Step 4: Identify the Source
 
 Which plugin files should have prevented this mistake?
 
@@ -111,31 +111,29 @@ Use the repository structure shown above to identify the likely files. Based on 
 
 **Be honest if you're not certain.** It's okay to say "likely `backend-engineer.md` based on the role that was active" rather than claiming certainty you don't have.
 
-### Step 4: Propose Specific Improvements
+### Step 5: Propose Specific Improvements
 
-For each file that needs changes, propose improvements based on:
-- What you remember seeing (or NOT seeing) in the expanded prompt
-- What the user told you went wrong
-- What would have prevented this mistake
+**IMPORTANT: Focus on the SINGLE MOST IMPACTFUL change.**
 
-Specify:
+Don't propose 3-5 improvements. Identify the ONE change that would have prevented this specific mistake. You can mention other potential improvements briefly, but provide detailed markdown for only ONE primary change.
+
+For the primary improvement, specify:
 
 **Location:** `project-roles/path/to/file.md`
 
-**Change:** Show the actual markdown/text to add or modify
+**Change:** Show the actual markdown/text to add or modify (keep it focused - 50-150 words)
 ```markdown
 ## CRITICAL: [Requirement Name]
 
 **BEFORE [action], you MUST:**
 1. [Specific step]
 2. [Specific step]
-3. [Specific step]
 
 ❌ WRONG: [Show what not to do]
 ✅ RIGHT: [Show what to do]
 ```
 
-**Why:** Explain how this prevents the mistake from happening again
+**Why:** Explain how this prevents the mistake from happening again (2-3 sentences)
 
 **Types of improvements to consider:**
 - More explicit language with examples
@@ -143,11 +141,11 @@ Specify:
 - Prominent negative examples (show WRONG way first)
 - Add to checklists
 - Add emphasis (bold, ALL CAPS, emojis for critical points)
-- Repetition in multiple relevant places
+- Repetition at key decision points
 - Concrete before/after code examples
-- Step-by-step walkthroughs
+- Hard checkpoints that block forward progress
 
-### Step 5: Sanitize for Public GitHub Issue
+### Step 6: Sanitize for Public GitHub Issue
 
 **CRITICAL:** Remove all sensitive information before creating the issue.
 
@@ -178,51 +176,63 @@ Specify:
 ❌ Before: "The customer_stripe_id field in our payments table"
 ✅ After: "A foreign key field in a database table"
 
-### Step 6: Draft the GitHub Issue
+### Step 7: Draft the GitHub Issue
 
-Create a sanitized issue following this structure. **Include what you experienced** - this is valuable context about the current state of the documentation.
+Create a sanitized issue following this structure. **Keep it concise** - aim for under 1000 words total.
+
+**Include what you experienced** - this is valuable context about the current state of the documentation.
+
+Use this exact markdown template:
 
 ```markdown
-**Title:** [Convention] [Brief description of what was missed]
+## What Convention/Pattern Was Missed?
 
-**Which plugin?** project-roles
+[2-3 sentences: What should have been followed but wasn't]
 
-**Component Type:** [Role Command / Linear Command / Skill / Agent / Documentation]
+## What I Saw When Invoked
 
-**Specific Component:** [Name of the role/skill/agent]
+[2-4 sentences: What instructions/checklist you received when the command/skill was invoked. If you don't remember seeing anything about this requirement, say that clearly.]
 
-**What Convention/Pattern Was Missed?**
-[Clear description of what should have been followed but wasn't]
+## Task Context (Generic)
 
-**What I Saw When Invoked:**
-[What instructions/checklist/workflow you received when the command/skill was invoked. Be specific - this shows the current state of documentation. If you don't remember seeing anything about the requirement, say that clearly.]
+[1-2 sentences: Generic description of the task type - no company specifics]
 
-**Task Context (Generic):**
-[Generic description of the task type - no company specifics]
+## Why Wasn't It Clear?
 
-**Why Wasn't It Clear?**
-[Analysis of the documentation gap based on what you experienced]
+[2-4 sentences: Analysis of the documentation gap based on what you experienced]
 
-**Which Documentation Files Need Updates?**
-- `project-roles/path/to/file.md` (specify if uncertain: "likely this file based on X")
-- `project-roles/path/to/another/file.md`
+## Which Documentation Files Need Updates
 
-**Proposed Improvements:**
+- `project-roles/path/to/file.md`
+
+## Proposed Improvement
 
 **File:** `project-roles/path/to/file.md`
+
 **Change:**
 ```markdown
-[Exact text to add/modify - be specific about placement and formatting]
-```
-**Why:** [How this prevents future mistakes]
-
-[Repeat for each file]
-
-**Additional Context:**
-[Any other relevant observations about frequency, similar issues, etc.]
+[Your proposed markdown text to add/modify - keep focused, 50-150 words]
 ```
 
-### Step 7: Show Draft for Approval
+**Why:** [2-3 sentences: How this prevents future mistakes]
+
+## Additional Context
+
+[1-2 sentences: Any other relevant observations, or note if this happens frequently]
+
+---
+
+**Component:** [Role Command / Linear Command / Skill / Agent] - [specific name]
+**Plugin:** project-roles
+```
+
+**Length Guidelines:**
+- What I Saw When Invoked: 2-4 sentences
+- Proposed Improvement: 50-150 words of markdown
+- Other sections: 1-4 sentences each
+- Target: 500-1000 words total
+
+### Step 8: Show Draft for Approval
 
 Display the complete sanitized issue to the user with clear formatting:
 
@@ -233,32 +243,7 @@ DRAFT GITHUB ISSUE
 
 Title: [Convention] [Brief description]
 
-Which plugin? project-roles
-
-Component Type: [Role Command / Linear Command / Skill / Agent]
-
-Specific Component: [name]
-
-What Convention/Pattern Was Missed?
-[description]
-
-What I Saw When Invoked:
-[what you experienced]
-
-Task Context (Generic):
-[generic task description]
-
-Why Wasn't It Clear?
-[analysis]
-
-Which Documentation Files Need Updates?
-[file paths]
-
-Proposed Improvements:
-[specific changes with examples]
-
-Additional Context:
-[other observations]
+[Full formatted markdown body from Step 6 here]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -268,83 +253,61 @@ Then ask:
 **IMPORTANT: Please review this draft carefully for any sensitive information.**
 
 Would you like me to:
-1. **Open pre-filled form in browser** - Opens GitHub with all fields populated for final review
-2. **Show URL only** - Display the URL so you can open it manually
+1. **Create GitHub issue** - Post to RasmusGodske/dev-agent-workflow using gh CLI
+2. **Save to file** - Save the draft locally for manual posting later
 3. **Cancel** - Don't create the issue
 
-### Step 8: Open Pre-Filled GitHub Issue Form (if approved)
+### Step 9: Create GitHub Issue (if approved)
 
-GitHub's YAML issue forms can be pre-populated using URL query parameters. Construct a URL and open it in the browser for final review and submission.
-
-#### Build the URL
-
-Use Python to construct the URL with proper encoding:
-
-```python
-import urllib.parse
-
-# Map your sanitized data to form field IDs
-params = {
-    'template': 'convention-improvement.yml',
-    'title': '[Convention] [your title]',
-    'plugin': 'project-roles',
-    'component-type': '[component type value]',
-    'component-name': '[component name]',
-    'what-was-missed': '[sanitized text]',
-    'what-was-seen': '[what you experienced]',
-    'task-context': '[generic context]',
-    'why-unclear': '[analysis]',
-    'affected-files': '[file paths]',
-    'proposed-improvements': '[improvements with markdown]',
-    'additional-context': '[observations]'
-}
-
-base_url = 'https://github.com/RasmusGodske/dev-agent-workflow/issues/new'
-query_string = urllib.parse.urlencode(params)
-full_url = f'{base_url}?{query_string}'
-```
-
-#### Open in Browser
-
-If user chose option 1, open the URL in the default browser:
+If the user approves option 1, use the GitHub CLI to create the issue directly:
 
 ```bash
-xdg-open "[URL]"  # Linux
-# or
-open "[URL]"      # macOS
-# or
-start "[URL]"     # Windows
+gh issue create \
+  --repo RasmusGodske/dev-agent-workflow \
+  --title "[Convention] [your title]" \
+  --body "$(cat <<'EOF'
+[Full markdown body from Step 6]
+EOF
+)" \
+  --label "user-feedback,documentation,improvement"
+```
+
+**Important notes:**
+- Use a heredoc (`cat <<'EOF' ... EOF`) to properly handle the multi-line body
+- The single quotes around `'EOF'` prevent variable expansion
+- This ensures markdown formatting is preserved
+
+Then return the issue URL to the user:
+
+```
+✅ Issue created successfully!
+
+📍 View it here: https://github.com/RasmusGodske/dev-agent-workflow/issues/[number]
+
+Thank you for helping improve the plugin! This feedback will help make the documentation clearer for everyone.
+```
+
+#### Alternative: Save to File (Option 2)
+
+If user chose option 2, save the issue to a local file:
+
+```bash
+cat > convention-improvement-draft.md <<'EOF'
+# Title: [Convention] [title]
+
+[Full markdown body]
+EOF
 ```
 
 Then tell the user:
 
 ```
-✅ Opening pre-filled issue form in your browser...
+✅ Draft saved to: convention-improvement-draft.md
 
-The GitHub issue form is now open with all fields pre-populated.
-
-Please:
-1. Review all fields one final time for sensitive information
-2. Make any last edits if needed
-3. Click "Submit new issue" when ready
-
-The issue will be created in: RasmusGodske/dev-agent-workflow
+You can review this file and manually create the issue at:
+https://github.com/RasmusGodske/dev-agent-workflow/issues/new
 
 Thank you for helping improve the plugin!
-```
-
-#### Show URL Only
-
-If user chose option 2, display the URL:
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Pre-filled issue form URL:
-
-[full URL here]
-
-Copy and paste this URL into your browser to review and submit.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ## Key Principles
