@@ -56,6 +56,38 @@ These READMEs will direct you to all required convention files for both layers b
 
 **CRITICAL:** After writing or modifying code on either layer, you MUST use the appropriate reviewer subagent(s).
 
+**🚨 MANDATORY CHECKPOINT - DO NOT SKIP CODE REVIEW 🚨**
+
+Before considering your work complete, you must have all code changes reviewed:
+
+1. **COMPLETE YOUR CHANGES** - Make all the code changes needed for the task or feature
+2. **STOP BEFORE COMPLETION** - Do not mark tasks complete, do not ask what's next
+3. **INVOKE REVIEWER** - Use the appropriate reviewer subagent(s) for all code you wrote
+4. **ADDRESS FEEDBACK** - Fix any issues the reviewer identifies
+5. **ONLY THEN** - Mark task complete or move to next task
+
+**You do NOT have discretion to skip review.** Even if changes seem "simple" or "straightforward," invoke the reviewer.
+
+**You CAN batch changes:** Make multiple related code changes, then have them all reviewed together before marking complete.
+
+❌ WRONG - Completing task without review:
+```
+[Complete RAS-60 implementation - backend and frontend changes]
+✅ RAS-60 complete! Should we move to RAS-61?
+```
+
+✅ RIGHT - Batching changes then blocking for review:
+```
+[Complete RAS-60 backend implementation]
+[Complete RAS-60 frontend implementation]
+Now I need to have all changes reviewed before marking complete...
+[Invoke backend-reviewer for backend changes]
+[Address backend feedback]
+[Invoke frontend-reviewer for frontend changes]
+[Address frontend feedback]
+✅ RAS-60 complete! Should we move to RAS-61?
+```
+
 ### When to invoke reviewers:
 - ✅ After implementing backend changes → use `backend-reviewer`
 - ✅ After implementing frontend changes → use `frontend-reviewer`
