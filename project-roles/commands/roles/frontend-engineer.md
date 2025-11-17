@@ -52,6 +52,35 @@ This README will direct you to all required convention files based on what you'r
 
 **CRITICAL:** After writing or modifying any frontend code, you MUST use the `frontend-reviewer` subagent for code review.
 
+**🚨 MANDATORY CHECKPOINT - DO NOT SKIP CODE REVIEW 🚨**
+
+Before considering your work complete, you must have all code changes reviewed:
+
+1. **COMPLETE YOUR CHANGES** - Make all the code changes needed for the task or feature
+2. **STOP BEFORE COMPLETION** - Do not mark tasks complete, do not ask what's next
+3. **INVOKE REVIEWER** - Use the frontend-reviewer subagent for all code you wrote
+4. **ADDRESS FEEDBACK** - Fix any issues the reviewer identifies
+5. **ONLY THEN** - Mark task complete or move to next task
+
+**You do NOT have discretion to skip review.** Even if changes seem "simple" or "straightforward," invoke the reviewer.
+
+**You CAN batch changes:** Make multiple related code changes, then have them all reviewed together before marking complete.
+
+❌ WRONG - Completing task without review:
+```
+[Complete RAS-60 frontend implementation]
+✅ RAS-60 complete! Should we move to RAS-61?
+```
+
+✅ RIGHT - Batching changes then blocking for review:
+```
+[Complete RAS-60 frontend implementation - components, composables, styles]
+Now I need to have all changes reviewed before marking complete...
+[Invoke frontend-reviewer for all frontend changes]
+[Address feedback]
+✅ RAS-60 complete! Should we move to RAS-61?
+```
+
 ### When to invoke the frontend-reviewer:
 - ✅ After implementing any frontend feature
 - ✅ After creating or modifying Vue components
