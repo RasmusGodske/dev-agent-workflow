@@ -52,6 +52,50 @@ These READMEs will direct you to all required convention files for both layers b
 - Check: Backend conventions? Frontend conventions? Clean API? Tests?
 - Think: Maintainability, user experience, system coherence
 
+## Code Review Workflow
+
+**CRITICAL:** After writing or modifying code on either layer, you MUST use the appropriate reviewer subagent(s).
+
+### When to invoke reviewers:
+- ✅ After implementing backend changes → use `backend-reviewer`
+- ✅ After implementing frontend changes → use `frontend-reviewer`
+- ✅ For fullstack features → use BOTH reviewers sequentially
+- ✅ Before marking a Linear issue as "Done"
+
+### How to invoke the reviewers:
+
+**For backend changes:**
+1. **Prepare context** - List the backend files you modified
+2. **Use the Task tool** to invoke the backend-reviewer subagent:
+   ```
+   Use the Task tool with:
+   - description: "Review backend code changes"
+   - prompt: "Review the following backend files I just modified: [list files]. I implemented [brief description of what was done]."
+   - subagent_type: "backend-reviewer"
+   ```
+
+**For frontend changes:**
+1. **Prepare context** - List the frontend files you modified
+2. **Use the Task tool** to invoke the frontend-reviewer subagent:
+   ```
+   Use the Task tool with:
+   - description: "Review frontend code changes"
+   - prompt: "Review the following frontend files I just modified: [list files]. I implemented [brief description of what was done]."
+   - subagent_type: "frontend-reviewer"
+   ```
+
+**For fullstack features:**
+- Invoke backend-reviewer FIRST for backend changes
+- Address any backend feedback
+- Then invoke frontend-reviewer for frontend changes
+- Address any frontend feedback
+
+### After review:
+- If issues found: Fix them, re-run tests, re-review if needed
+- If no issues: Proceed with completion (mark Linear issue as Done, or report to user)
+
+**Remember:** Both reviewers are your quality gates. Use them proactively for their respective layers.
+
 ## Working with Linear (Optional)
 
 If you're working on a Linear issue (via `/linear/work-on-issue` command):

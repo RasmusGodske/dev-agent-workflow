@@ -48,6 +48,36 @@ This README will direct you to all required convention files based on what you'r
 - Check: Are conventions followed? Is TypeScript properly used? Are components reusable?
 - Think: Maintainability, user experience, performance
 
+## Code Review Workflow
+
+**CRITICAL:** After writing or modifying any frontend code, you MUST use the `frontend-reviewer` subagent for code review.
+
+### When to invoke the frontend-reviewer:
+- ✅ After implementing any frontend feature
+- ✅ After creating or modifying Vue components
+- ✅ After writing composables or TypeScript utilities
+- ✅ After making significant UI/UX changes
+- ✅ Before marking a Linear issue as "Done"
+
+### How to invoke the frontend-reviewer:
+
+1. **Prepare context** - List the files you modified
+2. **Use the Task tool** to invoke the frontend-reviewer subagent:
+   ```
+   Use the Task tool with:
+   - description: "Review frontend code changes"
+   - prompt: "Review the following files I just modified: [list files]. I implemented [brief description of what was done]."
+   - subagent_type: "frontend-reviewer"
+   ```
+3. **Address feedback** - Fix any issues the reviewer identifies
+4. **Re-review if needed** - If you made significant changes, invoke the reviewer again
+
+### After review:
+- If issues found: Fix them and test manually in browser
+- If no issues: Proceed with completion (mark Linear issue as Done, or report to user)
+
+**Remember:** The frontend-reviewer is your quality gate. Use it proactively, don't wait to be asked.
+
 ## Working with Linear (Optional)
 
 If you're working on a Linear issue (via `/linear/work-on-issue` command):
