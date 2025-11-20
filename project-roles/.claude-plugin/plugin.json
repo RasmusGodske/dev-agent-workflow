@@ -1,7 +1,7 @@
 {
   "name": "project-roles",
-  "version": "1.0.3",
-  "description": "Role-based workflows for Laravel/Vue projects with Linear integration. Includes tech lead, backend engineer, frontend engineer, and fullstack engineer roles with commands for project planning and issue management.",
+  "version": "1.1.0",
+  "description": "Role-based workflows for Laravel/Vue projects with Linear integration and research-driven documentation. Includes tech lead, backend engineer, frontend engineer, and fullstack engineer roles with commands for project planning, issue management, and documentation generation.",
   "author": {
     "name": "RasmusGodske"
   },
@@ -14,6 +14,8 @@
     "vue",
     "project-management",
     "workflow",
-    "team"
+    "team",
+    "documentation",
+    "research"
   ]
 }
