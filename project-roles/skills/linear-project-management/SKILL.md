@@ -11,6 +11,25 @@ When this skill is activated, you MUST follow these steps:
 
 2. **Follow Loaded Rules**: The README.md file contains all necessary guidance for Linear project management tasks. Follow the instructions and conventions defined there.
 
+## 🚨 MANDATORY CHECKPOINT - Linear Project Creation
+
+**BEFORE creating any Linear project**, you MUST follow this workflow:
+
+1. **Draft the project description** following all conventions (branch, purpose, scope, etc.)
+2. **STOP** - Do not create the project yet
+3. **Invoke the reviewer** using the Task tool:
+   ```
+   subagent_type: "project-roles:linear-project-description-reviewer"
+   prompt: "Review this Linear project description: [paste description]"
+   ```
+4. **Address all feedback** from the reviewer
+5. **ONLY THEN** create the project using `mcp__linear-server__create_project`
+
+❌ WRONG: Draft description → Immediately create project
+✅ RIGHT: Draft description → Get reviewed → Address feedback → Create project
+
+**You do NOT have discretion to skip review.** This ensures every project provides comprehensive context for agents working on its issues.
+
 ## When This Skill Activates
 
 This skill activates for:
