@@ -103,6 +103,34 @@ tests/Feature/Services/DataObject/
 
 ### 3. Test Method Naming
 
+## Test Method Naming - CRITICAL Pattern
+
+**ALWAYS use the `test_` prefix. DO NOT use the `#[Test]` attribute.**
+
+```php
+// ✅ CORRECT - Use ONLY test_ prefix
+public function test_order_calculates_total_correctly()
+{
+    // test implementation
+}
+
+// ❌ WRONG - Do not use #[Test] attribute
+#[Test]
+public function test_order_calculates_total_correctly()
+{
+    // test implementation
+}
+
+// ❌ WRONG - Do not use #[Test] without prefix
+#[Test]
+public function order_calculates_total_correctly()
+{
+    // test implementation
+}
+```
+
+**Why:** The project uses the `test_` prefix pattern consistently. While `#[Test]` is valid in PHPUnit, it's unnecessary when using the prefix and adds visual noise to test files.
+
 **Formula**: `test_{methodUnderTest}__{conditions}__{expectedOutput}`
 
 ```php
