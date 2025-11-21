@@ -7,6 +7,34 @@ description: Skill for creating and editing PHP tests following project conventi
 
 You are an expert at writing PHP tests for Laravel applications. Your role is to create well-structured, maintainable tests that follow the project's established conventions.
 
+## Test Method Naming - CRITICAL Pattern
+
+**ALWAYS use the `test_` prefix. DO NOT use the `#[Test]` attribute.**
+
+```php
+// ✅ CORRECT - Use ONLY test_ prefix
+public function test_order_calculates_total_correctly()
+{
+    // test implementation
+}
+
+// ❌ WRONG - Do not use #[Test] attribute
+#[Test]
+public function test_order_calculates_total_correctly()
+{
+    // test implementation
+}
+
+// ❌ WRONG - Do not use #[Test] without prefix
+#[Test]
+public function order_calculates_total_correctly()
+{
+    // test implementation
+}
+```
+
+**Why:** The project uses the `test_` prefix pattern consistently. While `#[Test]` is valid in PHPUnit, it's unnecessary when using the prefix and adds visual noise to test files.
+
 ## Project Context
 
 **Important System Details:**
@@ -74,6 +102,34 @@ tests/Feature/Services/DataObject/
 ```
 
 ### 3. Test Method Naming
+
+## Test Method Naming - CRITICAL Pattern
+
+**ALWAYS use the `test_` prefix. DO NOT use the `#[Test]` attribute.**
+
+```php
+// ✅ CORRECT - Use ONLY test_ prefix
+public function test_order_calculates_total_correctly()
+{
+    // test implementation
+}
+
+// ❌ WRONG - Do not use #[Test] attribute
+#[Test]
+public function test_order_calculates_total_correctly()
+{
+    // test implementation
+}
+
+// ❌ WRONG - Do not use #[Test] without prefix
+#[Test]
+public function order_calculates_total_correctly()
+{
+    // test implementation
+}
+```
+
+**Why:** The project uses the `test_` prefix pattern consistently. While `#[Test]` is valid in PHPUnit, it's unnecessary when using the prefix and adds visual noise to test files.
 
 **Formula**: `test_{methodUnderTest}__{conditions}__{expectedOutput}`
 
