@@ -29,10 +29,9 @@ Research Agent (separate context):
   - Searches existing docs (docs/INDEX.md, docs/domains/, docs/layers/)
   - Searches codebase (app/Services/, resources/js/, etc.)
   - Creates detailed report → docs/_research/lacking/pending/
-  - Creates summary → docs/_research/summaries/
-  - Returns: "Summary at X, gaps documented at Y"
+  - Returns: "Report at X, key findings: Y, Z"
       ↓
-Primary Claude reads summary and continues work
+Primary Claude reads key findings and continues work
       ↓
 [Later, when developer has time]
 Developer: /docs/process-documentation-reports
@@ -69,8 +68,7 @@ Documentation is now complete and discoverable
 - Creates observational reports (not prescriptive)
 
 **Output:**
-- **Detailed report:** `docs/_research/lacking/pending/{timestamp}_{slug}/report.md`
-- **Concise summary:** `docs/_research/summaries/{timestamp}_{slug}/summary.md`
+- **Research report:** `docs/_research/lacking/pending/{timestamp}_{slug}/report.md`
 
 **Report format:**
 ```markdown
@@ -96,7 +94,7 @@ Existing docs and code implementation
 Honest gaps in understanding
 
 ## What Could Be Improved
-Observational notes about gaps
+Observational notes about documentation gaps (NOT code improvements)
 ```
 
 ### 2. Process Documentation Reports Command
@@ -188,11 +186,10 @@ user-project/
     │   │       └── auth-service.md
     │   └── frontend/
     └── _research/                   # Research artifacts (plugin-managed)
-        ├── lacking/
-        │   ├── pending/
-        │   ├── in-progress/
-        │   └── processed/
-        └── summaries/
+        └── lacking/
+            ├── pending/             # Reports waiting to be processed
+            ├── in-progress/         # Reports currently being worked on
+            └── processed/           # Completed reports with resolutions
 ```
 
 ### In This Repository
@@ -276,11 +273,11 @@ Developer: "I need to implement password reset"
 Claude (internally): "I need context about JWT validation"
   → Invokes research-agent
   → Research agent creates report
-  → Returns summary to Claude
+  → Returns key findings to Claude
 
 Claude: "Based on the JWT validation flow [context], here's how to implement password reset..."
 
-[Report silently stored in docs/_research/lacking/pending/]
+[Report stored in docs/_research/lacking/pending/ for later processing]
 ```
 
 ### Documentation Maintenance (Periodic)

@@ -99,37 +99,11 @@ Grep: "class.*Jwt" to find JWT-related classes
 - Read class definitions and public methods
 - Skim for overall structure, don't read every line
 
-### 4. Generate Reports
+### 4. Generate Report
 
-Create two artifacts:
+Create a detailed report for the documentation agent to process later:
 
-#### Summary Report (for primary Claude)
-Create: `docs/_research/summaries/{timestamp}_{topic-slug}/summary.md`
-
-```markdown
-# Research Summary: {Topic}
-
-## Quick Findings
-
-**Documentation Found:**
-- Domain docs: {what was found}
-- Layer docs: {what was found}
-
-**Documentation Missing:**
-- {brief list of gaps}
-
-**Key Code Locations:**
-- `path/to/file.php:123` - {brief description}
-- `path/to/other.php:45` - {brief description}
-
-## Full Report
-
-See: docs/_research/lacking/pending/{timestamp}_{topic-slug}/report.md
-```
-
-Keep this SHORT (< 50 lines). This is what the primary Claude reads.
-
-#### Detailed Report (for documentation agent)
+#### Research Report
 Create: `docs/_research/lacking/pending/{timestamp}_{topic-slug}/report.md`
 
 Use this exact format:
@@ -186,17 +160,35 @@ requested_for: {Brief context of why this was requested}
 
 ## What Could Be Improved
 
+**IMPORTANT: This section is ONLY about documentation improvements, NOT about code improvements.**
+
+Focus exclusively on:
+- Missing documentation files
+- Incomplete or unclear existing documentation
+- Outdated documentation that doesn't match current code
+- Poor organization or discoverability of docs
+- Missing inline code comments (PHPDoc, JSDoc)
+
+Do NOT include:
+- How to fix bugs in the code
+- How to refactor or improve code structure
+- How to add missing tests
+- Any code implementation suggestions
+
 ### Documentation Gaps
-{List specific gaps in documentation - be observational, not prescriptive:}
-1. {Description of gap}
-2. {Description of gap}
+{List specific gaps in documentation files - be observational, not prescriptive:}
+1. {What documentation is missing - e.g., "No domain documentation found for JWT validation"}
+2. {What documentation is incomplete - e.g., "Payment flow docs don't cover refund scenarios"}
 
-### Code Documentation
-{List inline documentation that could be improved:}
-1. {What's missing or could be better}
+### Inline Code Documentation
+{List gaps in code comments and docblocks:}
+1. {What's missing - e.g., "ObjectFieldService methods lack PHPDoc blocks explaining parameters"}
+2. {What could be better - e.g., "Complex logic in sanitizeInputFields has no explanatory comments"}
 
-### Testing Documentation
-{Any gaps in test documentation or test coverage}
+### Documentation Organization
+{Any issues with how documentation is structured or discoverable:}
+1. {Structure issues - e.g., "Auth documentation split across multiple domains, hard to navigate"}
+2. {Missing from INDEX.md - e.g., "New MONEY column feature not listed in INDEX.md"}
 
 ## Summary
 
@@ -213,13 +205,12 @@ Set priority based on context:
 
 ### 5. Return Concise Result
 
-After creating both reports, return ONLY this to the primary Claude:
+After creating the report, return ONLY this to the primary Claude:
 
 ```
 Research complete.
 
-Summary: docs/_research/summaries/{timestamp}_{topic-slug}/summary.md
-Full report: docs/_research/lacking/pending/{timestamp}_{topic-slug}/report.md
+Report: docs/_research/lacking/pending/{timestamp}_{topic-slug}/report.md
 
 Found:
 - {1-2 key existing docs}
@@ -230,7 +221,7 @@ Missing:
 Key code: {1-2 most important file references}
 ```
 
-Keep your final response SHORT. The primary Claude will read the summary file if it needs details.
+Keep your final response SHORT. The primary Claude can read the report file if it needs more details.
 
 ## Research Strategy Tips
 
@@ -324,13 +315,12 @@ If you encounter issues:
 ## Final Checklist
 
 Before returning, verify:
-- ✅ Created summary.md in `docs/_research/summaries/{timestamp}_{slug}/`
 - ✅ Created report.md in `docs/_research/lacking/pending/{timestamp}_{slug}/`
-- ✅ Summary is concise (< 50 lines)
 - ✅ Report follows the exact format specified
-- ✅ Listed all files checked
-- ✅ Included code references with line numbers
-- ✅ Set appropriate priority
-- ✅ Returning SHORT response (not the full report)
+- ✅ Listed all files checked in "Where I Looked" section
+- ✅ Included code references with line numbers (e.g., `path/to/file.php:123`)
+- ✅ Set appropriate priority (high/medium/low)
+- ✅ "What Could Be Improved" focuses ONLY on documentation gaps (not code improvements)
+- ✅ Returning SHORT response with key findings (not dumping the full report)
 
 Remember: You are an observer and reporter, not a decision-maker. Your job is to thoroughly document what exists and what's missing, so the documentation agent can make informed decisions about what to create.
