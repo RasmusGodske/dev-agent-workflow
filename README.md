@@ -25,6 +25,25 @@ Bootstrap `.claude/rules/` structure with starter templates.
 
 [📖 Full Documentation](./rules-boilerplate/README.md)
 
+## Two-Tier Convention System
+
+The plugin supports a **two-tier convention system**:
+
+```
+.claude/
+├── rules/              # Techstack rules (can be a git submodule)
+│   ├── backend/        # Generic Laravel/PHP patterns
+│   └── frontend/       # Generic Vue/TypeScript patterns
+└── project-rules/      # Project-specific rules (optional)
+    ├── backend/        # This project's backend patterns
+    └── frontend/       # This project's frontend patterns
+```
+
+- **Techstack rules** (`.claude/rules/`) - Generic patterns that can be shared across projects
+- **Project rules** (`.claude/project-rules/`) - Patterns specific to this codebase (e.g., example tests, boilerplate)
+
+Roles and skills automatically check for both, loading techstack rules first, then project-specific rules if they exist.
+
 ## Installation
 
 ### Quick Install (Both Plugins)
@@ -64,13 +83,16 @@ Bootstrap `.claude/rules/` structure with starter templates.
 
 # Restart Claude Code
 
-# 2. Bootstrap rules
+# 2. Bootstrap techstack rules
 /setup-rules
 
 # 3. Customize rules for your project
 # Edit files in .claude/rules/
 
-# 4. Start working with roles
+# 4. (Optional) Add project-specific rules
+# Create .claude/project-rules/backend/README.md for project-specific patterns
+
+# 5. Start working with roles
 /roles/backend-engineer
 ```
 
@@ -162,6 +184,12 @@ MIT License - See individual plugin LICENSE files
 - Discussions: [GitHub Discussions](https://github.com/RasmusGodske/dev-agent-workflow/discussions)
 
 ## Changelog
+
+### v1.1.0
+- **Two-tier convention system**: Added support for `.claude/project-rules/` directory
+  - Techstack rules (`.claude/rules/`) for generic patterns shared across projects
+  - Project rules (`.claude/project-rules/`) for project-specific patterns
+- Updated all role commands and skills to load both rule tiers
 
 ### v1.0.0 (Initial Release)
 - **project-roles**: Role-based workflows with Linear integration

@@ -11,9 +11,15 @@ Use this skill when working with backend code to ensure project conventions are 
 
 **CRITICAL:** Before implementing any backend features, read ALL backend rules:
 
+**Step 1 - Techstack rules (required):**
 1. Use Glob to find all files: `.claude/rules/backend/*.md`
 2. Read each file to load conventions
 3. Also read: `.claude/rules/dataclasses/laravel-data.md`
+
+**Step 2 - Project-specific rules (if exists):**
+1. Check if `.claude/project-rules/backend/` directory exists
+2. If yes, use Glob to find all files: `.claude/project-rules/backend/*.md`
+3. Read each file to load project-specific patterns
 
 These rules contain all patterns, conventions, and best practices for:
 - Controller structure and responsibilities
@@ -21,6 +27,7 @@ These rules contain all patterns, conventions, and best practices for:
 - Database and model patterns
 - PHP best practices
 - Testing conventions
+- Project-specific patterns (examples, boilerplate, etc.)
 - And more...
 
 ## When to Use This Skill

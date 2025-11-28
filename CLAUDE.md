@@ -76,14 +76,15 @@ The plugin implements a role-based workflow system using **commands** and **skil
 - Claude autonomously activates these based on task context
 - Examples: `backend-developer`, `frontend-developer`, `laravel-data-writer`, `php-test-writer`
 - Each skill has YAML frontmatter with `name:` and `description:` that tells Claude when to use it
-- Skills load conventions from user's `.claude/rules/` directory
+- Skills load conventions from user's `.claude/rules/` directory (techstack) and `.claude/project-rules/` directory (project-specific, if exists)
 
 **Role Command Pattern:**
 When a user invokes `/roles/backend-engineer`:
 1. Command expands prompt in main conversation (not a separate context)
-2. Prompt instructs Claude to load `.claude/rules/backend/*.md` and `.claude/rules/dataclasses/*.md`
-3. Sets "Backend Engineer" mindset and approach for subsequent work
-4. All work happens in the main conversation thread
+2. Prompt instructs Claude to load techstack rules from `.claude/rules/backend/*.md`
+3. Prompt instructs Claude to check for and load project-specific rules from `.claude/project-rules/backend/*.md` if they exist
+4. Sets "Backend Engineer" mindset and approach for subsequent work
+5. All work happens in the main conversation thread
 
 **Linear Integration via MCP:**
 Commands use Linear MCP server tools:
@@ -99,26 +100,34 @@ Generates starter convention templates that project-roles expects:
 - Data class conventions (Spatie Laravel Data)
 
 ### User Project Structure
-The plugins expect users to have a `.claude/rules/` directory in their projects:
+The plugins expect users to have a `.claude/rules/` directory in their projects, and optionally a `.claude/project-rules/` directory for project-specific patterns:
 
 ```
 user-project/
 ├── .claude/
-│   ├── rules/              # Single source of truth for conventions
+│   ├── rules/              # Techstack conventions (can be a git submodule)
 │   │   ├── backend/        # Backend conventions loaded by backend role
 │   │   ├── frontend/       # Frontend conventions loaded by frontend role
 │   │   └── dataclasses/    # Data class patterns
+│   ├── project-rules/      # Project-specific conventions (optional)
+│   │   ├── backend/        # Project-specific backend patterns
+│   │   └── frontend/       # Project-specific frontend patterns
 │   └── settings.json       # Plugin installation config
 └── ... (user code)
 ```
 
-**Convention hierarchy** (as taught by the `agent-engineer` command):
-1. **Rules** (`.claude/rules/`) - Single source of truth for project conventions
-2. **Skills** - Load and apply rules; provide context on when to use patterns
-3. **Role Commands** - Load rules and set mindset for extended work
-4. **Workflow Commands** - Use rules during planning and implementation
+**Two-tier convention system:**
+- **Techstack rules** (`.claude/rules/`) - Generic patterns for Laravel/Vue that can be shared across projects (often as a git submodule)
+- **Project rules** (`.claude/project-rules/`) - Patterns specific to this codebase (e.g., example tests, project-specific boilerplate)
 
-This separation ensures conventions are defined once in `.claude/rules/` and referenced everywhere else.
+**Convention hierarchy** (as taught by the `agent-engineer` command):
+1. **Techstack Rules** (`.claude/rules/`) - Generic conventions for the tech stack
+2. **Project Rules** (`.claude/project-rules/`) - Project-specific patterns that extend techstack rules
+3. **Skills** - Load and apply rules; provide context on when to use patterns
+4. **Role Commands** - Load rules and set mindset for extended work
+5. **Workflow Commands** - Use rules during planning and implementation
+
+This separation ensures techstack conventions can be reused across projects while allowing project-specific patterns.
 
 ## Development Commands
 
@@ -184,10 +193,12 @@ The `/linear/work-on-issue` command (work-on-issue.md:40-64) includes logic to d
 - This is implemented as conditional logic in the command prompt, not as a separate agent
 
 ### Convention Loading Strategy
-Skills use a consistent pattern:
-1. Use Glob to find all rule files in relevant directory
-2. Read each file to load complete context
-3. Apply conventions during implementation
+Skills and roles use a two-step loading pattern:
+1. **Step 1 - Techstack rules:** Glob and read all files from `.claude/rules/<category>/*.md`
+2. **Step 2 - Project rules:** Check if `.claude/project-rules/<category>/` exists, if so glob and read those files too
+3. Apply all loaded conventions during implementation
+
+Project rules extend (don't replace) techstack rules, allowing project-specific patterns like example tests or boilerplate.
 
 ### Linear Issue Workflow
 Standard workflow enforced by `/linear/work-on-issue`:
@@ -246,8 +257,10 @@ Both plugins are optimized for:
 1. Create `project-roles/commands/roles/new-role.md`
 2. Add YAML frontmatter with `description:` field
 3. Define role focus, mindset, and approach in the prompt body
-4. Specify which `.claude/rules/` directories to load from user's project
-5. Use Glob and Read to load conventions: "Use Glob to find all files in `.claude/rules/backend/*.md`"
+4. Specify two-step convention loading:
+   - Step 1: Load techstack rules from `.claude/rules/<category>/*.md`
+   - Step 2: Check for and load project rules from `.claude/project-rules/<category>/*.md` if they exist
+5. Example: "Read `.claude/rules/backend/README.md` first, then check if `.claude/project-rules/backend/README.md` exists and read it"
 
 ### Adding New Linear Commands
 1. Create `project-roles/commands/linear/new-command.md`
@@ -262,7 +275,7 @@ Both plugins are optimized for:
    - `name:` - Skill identifier (lowercase-with-hyphens)
    - `description:` - When Claude should activate this skill (be specific!)
 3. In prompt body, define:
-   - What conventions to load from user's `.claude/rules/`
+   - Two-step convention loading (techstack rules from `.claude/rules/`, then project rules from `.claude/project-rules/` if they exist)
    - When to activate the skill
    - What the skill provides (context, not implementation details)
 
@@ -294,4 +307,4 @@ When users install these plugins, they experience:
 3. Skill prompt instructs Claude to load user's `.claude/rules/backend/` files
 4. Claude applies loaded conventions to current task
 
-The key insight: Commands and skills are **prompt templates** that get expanded and executed. They instruct Claude to read from the **user's** `.claude/rules/` directory, which is why the `rules-boilerplate` plugin exists - to create that structure for users.
+The key insight: Commands and skills are **prompt templates** that get expanded and executed. They instruct Claude to read from the **user's** `.claude/rules/` directory (techstack rules) and `.claude/project-rules/` directory (project-specific rules if it exists). The `rules-boilerplate` plugin creates the techstack rules structure; users create project-rules as needed for their specific codebase patterns.

@@ -11,8 +11,14 @@ Use this skill when working with frontend code to ensure project conventions are
 
 **CRITICAL:** Before implementing any frontend features, read ALL frontend rules:
 
+**Step 1 - Techstack rules (required):**
 1. Use Glob to find all files: `.claude/rules/frontend/*.md`
 2. Read each file to load conventions
+
+**Step 2 - Project-specific rules (if exists):**
+1. Check if `.claude/project-rules/frontend/` directory exists
+2. If yes, use Glob to find all files: `.claude/project-rules/frontend/*.md`
+3. Read each file to load project-specific patterns
 
 These rules contain all patterns, conventions, and best practices for:
 - Vue component structure
@@ -20,6 +26,7 @@ These rules contain all patterns, conventions, and best practices for:
 - Component composition patterns
 - Styling conventions
 - State management
+- Project-specific patterns (component examples, etc.)
 - And more...
 
 ## When to Use This Skill

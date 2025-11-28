@@ -156,32 +156,51 @@ For this plugin to work effectively, your project should have:
 ```
 your-project/
 ├── .claude/
-│   ├── rules/
+│   ├── rules/                 # Techstack conventions (can be a git submodule)
 │   │   ├── backend/           # Backend conventions (*.md files)
 │   │   ├── frontend/          # Frontend conventions (*.md files)
 │   │   └── dataclasses/       # Data class patterns (*.md files)
+│   ├── project-rules/         # Project-specific conventions (optional)
+│   │   ├── backend/           # Project-specific backend patterns
+│   │   └── frontend/          # Project-specific frontend patterns
 │   └── settings.json
 └── ... (your code)
 ```
 
+### Two-Tier Convention System
+
+The plugin supports a **two-tier convention system**:
+
+- **Techstack rules** (`.claude/rules/`) - Generic patterns for Laravel/Vue that can be shared across projects (often as a git submodule)
+- **Project rules** (`.claude/project-rules/`) - Patterns specific to this codebase (e.g., example tests, project-specific boilerplate)
+
+Roles and skills automatically load both, with techstack rules first, then project-specific rules if they exist.
+
 ### Example Rules Structure
 
 ```bash
-# Backend conventions
+# Techstack conventions (.claude/rules/)
 .claude/rules/backend/
 ├── controller-conventions.md
 ├── database-conventions.md
 ├── php-conventions.md
 └── testing-conventions.md
 
-# Frontend conventions
 .claude/rules/frontend/
 ├── vue-conventions.md
 └── component-composition.md
 
-# Data class conventions
 .claude/rules/dataclasses/
 └── laravel-data.md
+
+# Project-specific conventions (.claude/project-rules/) - Optional
+.claude/project-rules/backend/
+├── README.md                  # Index of project-specific backend rules
+└── testing-patterns.md        # Points to example tests in this codebase
+
+.claude/project-rules/frontend/
+├── README.md                  # Index of project-specific frontend rules
+└── component-examples.md      # Points to example components in this codebase
 ```
 
 ## Workflow Examples
@@ -313,6 +332,7 @@ Ensure Linear MCP server is configured in your `.mcp.json`:
 3. **Let Claude detect role mismatches** - Trust the warnings when your role doesn't match the task
 4. **Keep rules updated** - The plugin relies on your `.claude/rules/` being current
 5. **Review project status regularly** - Use `/linear/review-project` to stay aligned
+6. **Use project-rules for codebase-specific patterns** - Add `.claude/project-rules/` when you have patterns unique to your project (e.g., example tests, boilerplate)
 
 ## Troubleshooting
 
@@ -332,6 +352,11 @@ Ensure Linear MCP server is configured in your `.mcp.json`:
 ### Role Mismatch Warnings
 - This is intentional! Claude is helping you stay aligned
 - Consider switching roles or continuing if you know what you're doing
+
+### Project Rules Not Loading
+- Ensure `.claude/project-rules/` directory exists with proper structure
+- Each category needs a `README.md` (e.g., `.claude/project-rules/backend/README.md`)
+- Project rules are optional - if the directory doesn't exist, only techstack rules are loaded
 
 ## Contributing
 
@@ -357,6 +382,13 @@ MIT License - See LICENSE file for details
 - Documentation: [GitHub Repository](https://github.com/RasmusGodske/claude-project-roles)
 
 ## Changelog
+
+### v1.1.0
+- **Two-tier convention system**: Added support for `.claude/project-rules/` directory
+  - Techstack rules (`.claude/rules/`) for generic patterns shared across projects
+  - Project rules (`.claude/project-rules/`) for project-specific patterns
+- Updated all role commands to load both rule tiers
+- Updated all skills to load both rule tiers
 
 ### v1.0.0 (Initial Release)
 - Role-based engineering workflows (5 roles)
