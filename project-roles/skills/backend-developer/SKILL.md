@@ -30,6 +30,40 @@ These rules contain all patterns, conventions, and best practices for:
 - Project-specific patterns (examples, boilerplate, etc.)
 - And more...
 
+## Controller Response Types: Inertia vs JSON
+
+**BEFORE implementing a controller endpoint, determine the response type:**
+
+| Use Case | Response Type | Example |
+|----------|--------------|---------|
+| Dedicated page with own route | **Inertia** | Settings page, Dashboard, Detail view |
+| Reusable dialog/modal | **JSON** | Confirmation dialog, Quick-edit modal |
+| API consumed by external clients | **JSON** | Public API, webhook endpoints |
+
+### Decision Rule
+
+**Ask: "Does this endpoint render a full page?"**
+- ✅ YES → Use Inertia response with Vue page component
+- ❌ NO → Use JSON response
+
+❌ WRONG - Using JSON for a dedicated page:
+```php
+public function show(): JsonResponse
+{
+    return response()->json(SettingsData::from($settings));
+}
+```
+
+✅ RIGHT - Using Inertia for a dedicated page:
+```php
+public function show(): Response
+{
+    return Inertia::render('Settings/Show', [
+        'settings' => SettingsData::from($settings),
+    ]);
+}
+```
+
 ## When to Use This Skill
 
 Activate this skill when:
@@ -49,6 +83,40 @@ After loading the rules, you have complete context for:
 - Testing approaches and factory usage
 - PHPDoc conventions
 - Type safety patterns
+
+## Controller Response Types: Inertia vs JSON
+
+**BEFORE implementing a controller endpoint, determine the response type:**
+
+| Use Case | Response Type | Example |
+|----------|--------------|---------|
+| Dedicated page with own route | **Inertia** | Settings page, Dashboard, Detail view |
+| Reusable dialog/modal | **JSON** | Confirmation dialog, Quick-edit modal |
+| API consumed by external clients | **JSON** | Public API, webhook endpoints |
+
+### Decision Rule
+
+**Ask: "Does this endpoint render a full page?"**
+- ✅ YES → Use Inertia response with Vue page component
+- ❌ NO → Use JSON response
+
+❌ WRONG - Using JSON for a dedicated page:
+```php
+public function show(): JsonResponse
+{
+    return response()->json(SettingsData::from($settings));
+}
+```
+
+✅ RIGHT - Using Inertia for a dedicated page:
+```php
+public function show(): Response
+{
+    return Inertia::render('Settings/Show', [
+        'settings' => SettingsData::from($settings),
+    ]);
+}
+```
 
 ## Integration with Other Skills
 
